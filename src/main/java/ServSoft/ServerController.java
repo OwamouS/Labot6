@@ -7,17 +7,20 @@ import Control.cmdLists.StdCommandList;
 import java.io.IOException;
 import java.net.*;
 import java.nio.channels.DatagramChannel;
+import java.util.Scanner;
 
 public class ServerController {
 
     private static DatagramChannel channel;
     private static SocketAddress serv;
     private static SocketAddress client;
-    private static final int port = 1337;
+    private static int port = 1337;
     private static boolean running = false;
     private static CommandList cmdList =  new StdCommandList();
     private static InetAddress hostIP;
     private static Reply rep = null;
+    private static boolean portSet;
+    private static Scanner scanner;
 
     public static Request handleReply(Reply reply){
         byte[] serializedRequest = Serializer.serialize(reply);
@@ -44,13 +47,42 @@ public class ServerController {
         ServerController.channel = channel;
     }
 
+    protected void setPort(){
+        portSet = false;
+        System.out.println("----\nЗапуск сервера\n----");
+        while (!portSet){
+            try {
+                String numb = scanner.nextLine();
+                System.out.println("----");
+                if (numb.matches("[0-9]+")) {
+                    if (Integer.parseInt(numb) < 65535) {
+                        port = Integer.parseInt(numb);
+                        SocketAddress socket = new InetSocketAddress(port);
+                        hostIP = InetAddress.getByName("localhost");
+                        portSet = true;
+                    }else {
+                        System.out.println("----\nНедопустимый номер порта, введите снова\n----");
+                        continue;
+                    }
+                }else {
+                    System.out.println("----\nНедопустимый номер порта, введите снова\n----");
+                    continue;
+                }
+            }catch (IOException e){
+                System.out.println("----\nНедопустимый номер порта, введите снова\n----");
+                continue;
+            }
+        }
+
+    }
+
     public static void start(){
         running = true;
         try{
             hostIP = InetAddress.getLocalHost();
             serv = new InetSocketAddress(port);
             channel = DatagramChannel.open();
-            channel.configureBlocking(false);
+            //channel.configureBlocking(false);
             channel.bind(serv);
             System.err.println("bound to " + serv);
             System.out.println("Server awaiting connections...");
