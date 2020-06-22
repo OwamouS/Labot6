@@ -12,6 +12,8 @@ import java.util.*;
 
 public class Commandremove_lower implements Command{
 
+    private static final long serialVersionUID = 1337000013L;
+
     /**
      * Iterates through hashtable and remove all elements with id lower than one's given
      *
@@ -19,7 +21,7 @@ public class Commandremove_lower implements Command{
      */
 
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         try {
             Iterator<Map.Entry<String, Product>> it = TableController.getCurrentTable().getSet().iterator();
             int i = Integer.parseInt(args[0]);
@@ -28,12 +30,13 @@ public class Commandremove_lower implements Command{
                 if (map.getValue().getId() < i) {
                     it.remove();//against ConcurrentModificationException
                     TableController.getCurrentTable().remove(map.getKey());
-                    System.out.println("Elements with lower ID has been removed");
+                    return ("Elements with lower ID has been removed");
                 }
             }
         }catch (NumberFormatException e){
-            System.out.println("Argument must be a number!");
+            return ("Argument must be a number!");
         }
+        return null;
     }
 
     /**

@@ -14,11 +14,13 @@ import java.util.Map;
 
 public class Commandmin_by_name implements Command {
 
+    private static final long serialVersionUID = 1337000011L;
+
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         try {
             if (args.length == 1) {
-                System.out.println("There is no args for this command!");
+                return("There is no args for this command!");
             }
         }catch (NullPointerException e) {
             String min = "";
@@ -37,11 +39,12 @@ public class Commandmin_by_name implements Command {
                 i = 0;
             }
             if (p != null) {
-                System.out.println(p.toString());
+                return (p.toString());
             } else {
-                System.out.println("Empty table");
+                return ("Empty table");
             }
         }
+        return null;
     }
 
     /**

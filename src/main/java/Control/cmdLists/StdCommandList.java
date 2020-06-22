@@ -27,7 +27,7 @@ public class StdCommandList implements CommandList {
         Commandmin_by_name commandMin = new Commandmin_by_name();
         CommandRemove commandRemove = new CommandRemove();
         CommandExecute_Script commandExecute_script = new CommandExecute_Script();
-        CommandExit commandExit = new CommandExit();
+        //CommandExit commandExit = new CommandExit();
         CommandUpdate commandUpdate = new CommandUpdate();
         Commandreplace_if_greater commandreplaceIfGreater = new Commandreplace_if_greater();
         Commandremove_lower commandremove_lower = new Commandremove_lower();
@@ -47,7 +47,7 @@ public class StdCommandList implements CommandList {
         commands.put("remove_key", commandRemove);
         commands.put("execute_script", commandExecute_script);
         commands.put("update", commandUpdate);
-        commands.put("exit", commandExit);
+        //commands.put("exit", commandExit);
         commands.put("remove_lower", commandremove_lower);
         commands.put("filter_less_than_manufacturer", commandfilter_less_than_manufacturer);
     }

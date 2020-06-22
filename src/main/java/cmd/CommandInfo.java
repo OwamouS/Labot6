@@ -12,18 +12,20 @@ import java.util.Hashtable;
 
 public class CommandInfo implements Command {
 
+    private static final long serialVersionUID = 1337000010L;
+
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         try {
             if (args.length == 1) {
-                System.out.println("There is no args for this command!");
+                return ("There is no args for this command!");
             }
         }catch (NullPointerException e) {
-            System.out.println("Size of collection: " + TableController.getCurrentTable().getSize() + "\n"
+            return ("Size of collection: " + TableController.getCurrentTable().getSize() + "\n"
                     + "Type of collection: " + TableController.getCurrentTable().getType() + "\n" +
-                    "Date of creation: " + TableController.getCurrentTable().getCreationDate().toString());
-            System.out.println("Command complete...");
+                    "Date of creation: " + TableController.getCurrentTable().getCreationDate().toString() + "\nCommand complete...");
         }
+        return null;
     }
 
     /**

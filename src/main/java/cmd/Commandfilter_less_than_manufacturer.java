@@ -18,25 +18,28 @@ public class Commandfilter_less_than_manufacturer implements Command {
      * counter will control a situation when all elements have higher manufacturer id than one's given
      */
     private int counter;
+    private static final long serialVersionUID = 1337000006L;
 
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         try {
             counter = 0;
             Iterator<Map.Entry<String, Product>> it = TableController.getCurrentTable().getSet().iterator();
             int i = Integer.parseInt(args[0]);
+            StringBuilder stringBuilder = new StringBuilder("");
             while (it.hasNext()) {
                 Map.Entry<String, Product> map = it.next();
                 if (map.getValue().getManufacturer().getId() < i) {
                     counter++;
-                    System.out.println(TableController.getCurrentTable().get(map.getKey()).toString());
+                    stringBuilder.append(TableController.getCurrentTable().get(map.getKey()).toString());
                 }
             }
             if (counter == 0) {
-                System.out.println("No such elements.");
+                return ("No such elements.");
             }
+            return stringBuilder.toString();
         }catch(NumberFormatException e){
-            System.out.println("Argument must be a number!");
+            return ("Argument must be a number!");
         }
     }
 

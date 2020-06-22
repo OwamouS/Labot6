@@ -13,11 +13,14 @@ import java.util.*;
  */
 
 public class Commandgroup_counting_by_coordinates implements Command {
+
+    private static final long serialVersionUID = 1337000007L;
+
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         try {
             if (args.length == 1) {
-                System.out.println("There is no args for this command!");
+                return ("There is no args for this command!");
             }
         }catch (NullPointerException e) {
             List<Product> products = new ArrayList<>(TableController.getCurrentTable().getProducts());
@@ -33,10 +36,13 @@ public class Commandgroup_counting_by_coordinates implements Command {
                     }
                 }
             }
+            StringBuilder stringBuilder = new StringBuilder("");
             for (Map.Entry<String, Integer> m : map.entrySet()) {
-                System.out.println("By coordinates: " + m.getKey() + " locate " + m.getValue() + " products.");
+                stringBuilder.append("By coordinates: ").append(m.getKey()).append(" locate ").append(m.getValue()).append(" products.");
             }
+            return stringBuilder.toString();
         }
+        return null;
     }
 
     /**

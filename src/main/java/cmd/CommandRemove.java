@@ -13,8 +13,10 @@ import java.util.Set;
 
 public class CommandRemove implements Command {
 
+    private static final long serialVersionUID = 1337000012L;
+
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         int count = 0;
         for(String key : TableController.getCurrentTable().getKey()){
             if(key.equals(args[0])){
@@ -22,10 +24,10 @@ public class CommandRemove implements Command {
             }
         }
         if(count==0){
-            System.out.println("No such key\nAvailable keys: " + TableController.getCurrentTable().getKey());
+            return ("No such key\nAvailable keys: " + TableController.getCurrentTable().getKey());
         }else{
             TableController.getCurrentTable().remove(args[0]);
-            System.out.println("Element has been removed.");
+            return ("Element has been removed.");
         }
     }
 

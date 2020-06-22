@@ -14,7 +14,7 @@ import java.io.IOException;
 public class CommandSave implements Command {
 
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         if(args != null) {
             try {
                 File saveFile = new File(args[0]);
@@ -24,12 +24,12 @@ public class CommandSave implements Command {
                             System.out.println("Save file created");
                         } else {
                             System.out.println("Can`t create file.");
-                            return;
+                            return null;
                         }
                     }
                     catch (IOException e){
                         System.out.println("Illegal access, get the right access or try to save with another path.");
-                        return;
+                        return null;
                     }
                 }
                 if (saveFile.canWrite()) {
@@ -53,12 +53,12 @@ public class CommandSave implements Command {
                             System.out.println("Save file created");
                         } else {
                             System.out.println("Can`t create save file.");
-                            return;
+                            return null;
                         }
                     }
                     catch (IOException e){
                         System.out.println("Illegal Access, try to save with another path.");
-                        return;
+                        return null;
                     }
                 }
                 if (saved.canWrite()) {
@@ -73,6 +73,7 @@ public class CommandSave implements Command {
                 System.out.println("Default save file not found. Try to specify path.");
             }
         }
+        return null;
     }
 
     /**

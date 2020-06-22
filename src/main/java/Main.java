@@ -1,8 +1,7 @@
 import Control.*;
+import ServSoft.ServerController;
 
 import java.io.*;
-import java.util.Hashtable;
-import java.util.Map;
 
 public class Main {
 
@@ -28,6 +27,8 @@ public class Main {
                 Initializer.init(prodTable, null);
             }
         }
+
+        ServerController.start();
         CommandController cmd = new CommandController();
         System.out.println("Enter Command \n" +
                 "or Help to display a list of commands:");

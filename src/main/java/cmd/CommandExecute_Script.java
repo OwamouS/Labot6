@@ -3,6 +3,7 @@ package cmd;
 import Control.ScriptParser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * execute command from script
@@ -10,11 +11,23 @@ import java.io.IOException;
  *
  */
 
-public class CommandExecute_Script implements Command{
+public class CommandExecute_Script implements Command, Preparable{
+
+    private static final long serialVersionUID = 1337000004L;
+
+    ArrayList<String[]> commands;
 
     @Override
-    public void execute(String[] args) throws IOException {
-        ScriptParser.parseScript(args[0]);
+    public String execute(String[] args) throws IOException {
+        if (commands == null){
+            ScriptParser.parseScript(args[0]);
+            execute(args);
+            return null;
+        }
+        else {
+            ScriptParser.executeQuery(commands);
+            return ("Script was successfully executed");
+        }
     }
 
     /**
@@ -26,5 +39,10 @@ public class CommandExecute_Script implements Command{
     @Override
     public String toString() {
         return "execute_script";
+    }
+
+    @Override
+    public void prepare(String[] args) {
+        this.commands = ScriptParser.parseScript(args[0]);
     }
 }

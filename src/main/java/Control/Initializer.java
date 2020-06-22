@@ -46,14 +46,30 @@ public class Initializer {
             line = bufferedReader.readLine();
             if (line.contains(";")){
                 table.setCreationDate(LocalDateTime.now());
-                build(table,line.split(";"));
+                Product product = build(line.split(";"));
+                if (product != null ) {
+                    try {
+                        table.put(line.split(";")[0], product);
+                    }
+                    catch (NullPointerException e){
+                        System.out.println("Key is null, please try again with valid key...");
+                    }
+                }
             }
             else {
                 table.setCreationDate("".equals(line) ? LocalDateTime.now() : LocalDateTime.parse(line));
             }
 
             while ((line = bufferedReader.readLine()) != null) {
-                build(table,line.split(";"));
+                Product product = build(line.split(";"));
+                if (product != null ) {
+                    try {
+                        table.put(line.split(";")[0], product);
+                    }
+                    catch (NullPointerException e){
+                        System.out.println("Key is null, please try again with valid key...");
+                    }
+                }
             }
             bufferedReader.close();
             System.out.println("Initializing complete...");
@@ -91,11 +107,10 @@ public class Initializer {
 
     /**
      * Creates the new Product using the Strings array where all arguments are located in correct positions(as in the saved file)
-     * @param table Built product will be placed here
      * @param str Strings array of arguments for building Product
      * @return Built Product
      */
-    public static Product build(TableManager table, String[] str){
+    public static Product build(String[] str){
         if (str.length < 15){
             try {
                 String[] temp = Arrays.copyOfRange(str, 0, 1);
@@ -148,15 +163,6 @@ public class Initializer {
                 product = new Product("".equals(str[1]) ? null : Long.parseLong(str[1]), str[2], coord, str.length < 16 ? null : Float.parseFloat(str[15]), UnitOfMeasure.valueOf(str[13]), org, "".equals(str[14]) ? null : LocalDateTime.parse(str[14]));
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-
-            if (product != null ) {
-                try {
-                    table.put(str[0], product);
-                }
-                catch (NullPointerException e){
-                    System.out.println("Key is null, please try again with valid key...");
-                }
             }
             return product;
         }

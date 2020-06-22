@@ -10,20 +10,25 @@ import java.util.Arrays;
 
 public class CommandHelp implements Command {
 
+    private static final long serialVersionUID = 1337000008L;
+
     @Override
-    public void execute(String[] args){
+    public String execute(String[] args){
         try {
             if (args.length == 1) {
-                System.out.println("There is no args for this command!");
+                return ("There is no args for this command!");
             }
         }catch (NullPointerException e){
-            System.out.println("help: display help for available commands \n " +
+            return ("help: display help for available commands \n " +
                     "info: display information about the collection (type, initialization date, number of elements, etc.) in the standard output stream \n" +
                     "show: output to the standard output stream all the elements of the collection in the string representation \n" +
                     "insert key {element}: add a new element with the given key \n" +
                     "update id {element}: update the value of a collection element whose id is equal to the given \n" +
                     "remove_key key: remove an item from the collection by its key \n" +
                     "clear: clear collection \n" +
+                    "save: save collection to file \n" +
+                    "change_port: change current client port \n" +
+                    "connect IP port: connect to new socket \n" +
                     "save: save collection to file \n" +
                     "execute_script file_name: read and execute the script from the specified file. The script contains the commands in the same form in which the user types them interactively. \n" +
                     "exit: exit the program (without saving to a file) \n" +
@@ -34,7 +39,7 @@ public class CommandHelp implements Command {
                     "group_counting_by_coordinates: group the elements of the collection by the value of the coordinates field, display the number of elements in each group \n" +
                     "filter_less_than_manufacturer manufacturer: display elements whose manufacturer ID field value is less than the specified");
         }
-
+        return null;
     }
 
     /**

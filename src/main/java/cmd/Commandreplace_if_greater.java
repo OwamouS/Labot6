@@ -15,8 +15,10 @@ import java.util.*;
 
 public class Commandreplace_if_greater implements Command{
 
+    private static final long serialVersionUID = 1337000014L;
+
     @Override
-    public void execute(String[] args) {
+    public String execute(String[] args) {
         int c = 0;
         for(String key : TableController.getCurrentTable().getKey()){
             if(key.equals(args[0])){
@@ -24,7 +26,7 @@ public class Commandreplace_if_greater implements Command{
             }
         }
         if(c==0){
-            System.out.println("No such key\nAvailable keys: " + TableController.getCurrentTable().getKey());
+            return ("No such key\nAvailable keys: " + TableController.getCurrentTable().getKey());
         }else{
             for (Map.Entry<String, Product> map : TableController.getCurrentTable().getSet()) {
                 if (map.getKey().compareTo(args[0]) == 0) {
@@ -35,7 +37,7 @@ public class Commandreplace_if_greater implements Command{
                     }
                 }
             }
-            System.out.println("Element has been replaced");
+            return ("Element has been replaced");
         }
     }
 
